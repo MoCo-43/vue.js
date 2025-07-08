@@ -14,14 +14,14 @@
   </p>
 
   <p>
-    <label>
+    <label
+      >{{ checking }}
       <input
         type="checkbox"
         true-value="yes"
         false-value="no"
         v-model="checking"
       />
-      {{ checking }}
     </label>
   </p>
   <p>{{ valueModel }}, {{ numberModel }}, {{ city }}</p>
