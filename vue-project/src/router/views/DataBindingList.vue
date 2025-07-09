@@ -1,5 +1,6 @@
 <template>
   <h3>List 랜더링</h3>
+  <!-- v-if 조건문 -->
   <div v-if="productList.length == 0">
     <span>** No Data **</span>
   </div>
