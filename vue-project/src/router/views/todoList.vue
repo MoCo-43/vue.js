@@ -2,10 +2,16 @@
   <div id="myDIV" class="header">
     <h2 style="margin: 5px">My To Do List</h2>
     <input type="text" v-model="msg" placeholder="Title..." />
-    <span v-on:click="newElement" class="addBtn">Add</span>
+    <span v-on:click="newElement(msg)" class="addBtn">Add</span>
   </div>
 
   <ul id="myUL">
+    <!-- 순서대로
+      id
+      for todoList에서 todo값으로 불러옴
+      class형태로 todo테이블의 chk값을 chekced되어있는지 검사
+      클릭하면 id변수를 받아 itemClick의 함수가 작동
+    -->
     <li
       v-bind:key="todo.id"
       v-for="todo in todoList"
@@ -13,7 +19,9 @@
       v-on:click="itemClick(todo.id)"
     >
       {{ todo.name }}
+      <!-- todo목록-->
       <span v-on:click.stop="removeTodo(todo.id)" class="close">X</span>
+      <!-- 삭제버튼-->
     </li>
   </ul>
 </template>
@@ -37,7 +45,21 @@ export default {
     });
   },
   methods: {
-    newElement() {
+    newElement(msg) {
+      axios
+        .post("http://localhost:3000/todoAdd", {
+          name: msg,
+          chk: false,
+        })
+        .then((result) => {
+          console.log(result);
+          // 삭제요청의 성공/실패
+          if (result.data.errno) {
+            console.log(result);
+            alert("처리실패");
+            return;
+          }
+        });
       // 새로운 요소 추가하기. 신규id 생성하기.
       // let max_id = this.todoList.reduce((acc, item) => {
       //   return acc > item.id ? acc : item.id;
