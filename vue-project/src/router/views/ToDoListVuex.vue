@@ -1,82 +1,59 @@
 <template>
-  <h3>TodoView.vue</h3>
+  <h3>Vuex 사용하기</h3>
+
   <div id="myDIV" class="header">
     <h2 style="margin: 5px">My To Do List</h2>
-    <input type="text" v-model="msg" placeholder="Title..." />
-    <span v-on:click="newElement" class="addBtn">Add</span>
+    <form @submit="addNewTodo">
+      <input type="text" v-model="msg" placeholder="Title..." />
+      <button type="submit">추가</button>
+    </form>
   </div>
 
   <ul id="myUL">
-    <li
-      v-bind:key="todo.id"
-      v-for="todo in todoList"
-      v-bind:class="{ checked: todo.chk }"
-      v-on:click="itemClick(todo.id)"
-    >
+    <li v-bind:key="todo.id" v-for="todo in allTodos">
       {{ todo.name }}
-      <span v-on:click.stop="removeTodo(todo.id)" class="close">X</span>
     </li>
   </ul>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
       msg: "",
-      todoList: [],
+      // allTodos: [],  // 이 줄 지워!
     };
   },
-  mounted() {
-    axios({
-      method: "get",
-      url: "http://localhost:3000/todoList",
-    }).then((result) => {
-      this.todoList = result.data;
-      console.log(this.todoList);
-    });
+  computed: {
+    allTodos() {
+      return this.$store.getters.todoList;
+    },
   },
   methods: {
-    newElement() {
-      // 새로운 요소 추가하기. 신규id 생성하기.
-      // let max_id = this.todoList.reduce((acc, item) => {
-      //   return acc > item.id ? acc : item.id;
-      // }, 0);
-      let max_id = this.todoList[this.todoList.length - 1].id;
-      let todo = { id: max_id + 1, name: this.msg, chk: false }; //새로운요소추가하기.
-      this.todoList.push(todo); // 배열에 추가.
+    addNewTodo() {
+      // msg 후기 저장소의 mutations 호출
+      this.$store.commit("addTodo", this.msg);
     },
-    itemClick(no) {
-      // 스타일 변경하기.
-      for (let todo of this.todoList) {
-        if (todo.id == no) {
-          todo.chk = !todo.chk;
-        }
-      }
-    },
-    // 추가하는 버튼 기능 넣어보기
-    removeTodo(no) {
-      axios({
-        method: "delete",
-        url: "http://localhost:3000/todo/" + no,
-      }).then((result) => {
-        console.log(result);
-        // 삭제요청의 성공/실패
-        if (result.data.errno) {
-          console.log(result);
-          alert("처리실패");
-          return;
-        }
-      });
-      // 배열에서 제거하기.
-      this.todoList = this.todoList.filter((item) => item.id != no);
-    },
+  },
+  mounted() {
+    console.log(this.$store);
+    // console.log(this.$store.getters.titling); // $store의 getters를 사용하여 titling이라는 함수를 불러옴 => title의 문자열이 불러와짐
+    // console.log(this.$store.getters.todoList); // todoList
+    // console.log(this.$store._state.data.title);
+    // this.allTodos = this.$store.getters.todoList; // todoList를 가져옴
+  },
+  updated() {
+    console.log("updated hook");
+    console.log(this.$store);
   },
 };
 </script>
 
 <style scoped>
+div {
+  border: 1px solid yellow;
+}
+
 body {
   margin: 0;
   min-width: 250px;

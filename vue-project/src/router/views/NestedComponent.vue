@@ -27,7 +27,7 @@ export default {
       OkVal: false,
       memberList: [
         { name: "아버지", age: 40 },
-        { name: "아버지", age: 35 },
+        { name: "어머니", age: 35 },
         { name: "아들", age: 5 },
       ],
     };
