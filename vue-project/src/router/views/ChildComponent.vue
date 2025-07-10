@@ -15,7 +15,7 @@ export default {
   methods: {
     sendMessage() {
       // 이벤트 핸들러
-      this.$emit("send-message", this.msg); // $emit => 전달값을 방출하는거
+      this.$emit("send-message", this.msg); // $emit => 전달값을 방출하는거  // send-message 부모컴포넌트에 있는 거를 호출
       // this.$parent.msg = this.msg;
       // this.$parent.sendMessage("Test");
       // this.$parent.$parent.msg = this.msg; // 상위에 있는 부모 부모 를 표기

@@ -25,7 +25,7 @@ export default {
     title: { type: String, default: "페이지 제목" },
     likes: { type: Number, default: 0 },
     isOk: { type: Boolean, default: false },
-    member: {
+    members: {
       type: Array,
       default: () => {
         return [{ name: "삼촌", age: 37 }];

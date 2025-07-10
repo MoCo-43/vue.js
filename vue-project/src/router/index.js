@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import DataBinding from "./views/todoList.vue"; // v-if랑 v-show방식
+import DataBinding from "./views/ToDoListVuex.vue";
 
 const routes = [
   {
