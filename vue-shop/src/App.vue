@@ -14,7 +14,7 @@
     Date: 2025.07.10
   */
 import Header from "./components/layouts/HeaderLayout.vue";
-import Footer from "./components/layouts/HeaderLayout.vue";
+import Footer from "./components/layouts/FooterLayout.vue";
 
 export default {
   components: { Header, Footer },
