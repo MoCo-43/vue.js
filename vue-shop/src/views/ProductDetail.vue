@@ -197,7 +197,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$route.query.product_id); // 각각의 id를 rouing정보를 통해 가져올 수 있음
+    // console.log(this.$route.query.product_id); // 각각의 id를 rouing정보를 통해 가져올 수 있음
     this.productId = this.$route.query.product_id;
     this.getProductDetail();
     this.getProductMainImages();

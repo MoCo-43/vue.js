@@ -13,4 +13,13 @@ export default {
       return result.data; // result에는 값이 엄청많음. 그 안에 data를 반환하면 원하는 값이 반환됨
     },
   },
+  $base64(file) {
+    return new Promise((resolve) => {
+      let fn = new FileReader();
+      fn.onload = (e) => {
+        resolve(e.target.result); // ;base64, ddka;lfjkdsf;jdskf
+      };
+      fn.readAsDataURL(file);
+    });
+  },
 };
